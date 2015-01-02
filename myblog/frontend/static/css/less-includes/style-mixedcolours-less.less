@@ -1,0 +1,110 @@
+/* fonts stylesheet */
+@import url('fonts/stylesheet.css');
+
+/**
+ * The following are all css rules which override the default colour styles set in the other css files, so that each menu item has a different colour.
+ * The active menu item's colour is also applied to other sections throughout the page (ex: image borders and hover colours)
+ *
+ * Colours are defined and obtained from the colour-list.less file
+ *
+ * To apply, add "twlsky-mixedcolours" class to the <body> tag:
+ *
+ * The colours in the menu are the following (in order):
+ * - red
+ * - orange
+ * - yellow
+ * - green
+ * - blue
+ * - pink
+ */
+
+// ========== GET COLOURS from colour-list.less =============
+@import url('colour-list.less');
+
+@prefix: e("twlsky-mixedcolours");
+
+// ========== FOR EACH COLOUR =============
+.for-each-colour(@colours-total, @i: 1) when (@i =< @colours-total) {
+    @colour-name: e(extract(@colours-list, @i)); // returns: red
+    @colour-definition-title: e("colour-@{colour-name}"); // returns: colour-red
+    @colour: @@colour-definition-title; // returns: #fd1c36
+
+    // ==========================================================
+    // START: MAIN MENU ITEMS - each item has a different colour 
+    // ==========================================================
+
+    /* ============================================================ */
+
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > a:hover,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item.current-menu-item:nth-child(@{colours-total}n+@{i}) > a,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item.active:nth-child(@{colours-total}n+@{i}) > a,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item.current-menu-ancestor:nth-child(@{colours-total}n+@{i}) > a {
+        background: @colour !important;
+    }
+
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item > a:hover,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-item > a,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.active > a,
+    .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-ancestor > a {
+        background: @colour !important;
+    }  
+
+    @media (min-width: 768px) {
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > a:hover,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}).current-menu-item > a,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}).active > a,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}).current-menu-ancestor > a {
+            background:transparent !important;
+            border-color: @colour !important; 
+        } 
+
+        // ====================== Start: DROPDOWN MENUS ARROWS =======================
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_right:after,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:after,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_right:before,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-right-color: fade(@colour, 70%) !important;
+        }
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_right:before,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-right-color: #fff !important;
+        }
+        .background-dark.@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_right:before,
+        .background-dark.@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-right-color: #171717 !important;
+        }
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:after,
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-left-color: fade(@colour, 70%) !important;
+        } 
+        .@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-left-color: #fff !important;
+        }
+        .background-dark.@{prefix} header #main-menu-container #main-menu > li.menu-item:nth-child(@{colours-total}n+@{i}) > .sub-menu .sub-menu.menu_on_the_left:before {
+            border-left-color: #171717 !important;
+        }
+        // ====================== End: DROPDOWN MENUS ARROWS =======================
+
+        .@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item > a:hover,
+        .@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-item > a,
+        .@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.active > a,
+        .@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-ancestor > a {
+            color: #1d1d1d !important;
+            background: fade(@colour, 40%) !important;
+        } 
+        .background-dark.@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item > a:hover,
+        .background-dark.@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-item > a,
+        .background-dark.@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.active > a,
+        .background-dark.@{prefix} header #main-menu-container #main-menu li.menu-item:nth-child(@{colours-total}n+@{i}) .sub-menu li.menu-item.current-menu-ancestor > a {
+            color: #fff !important;
+        }  
+    }
+
+    // ==========================================================
+    // END: MAIN MENU ITEMS - each item has a different colour 
+    // ==========================================================
+
+    .for-each-colour(@colours-total, (@i + 1));
+}
+.for-each-colour(@colours-total);
+// ========== END: FOR EACH COLOUR =============
