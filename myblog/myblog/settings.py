@@ -7,6 +7,9 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
+from os.path import dirname, join, abspath
+
+PROJECT_ROOT = dirname(__file__)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -25,6 +28,18 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+
+BLOG_DIR = (
+    join(BASE_DIR, "blog")
+)
+
+FRONTEND_DIR = (
+    join(BLOG_DIR, "frontend")
+)
+
+TEMPLATE_DIRS = (
+    join(FRONTEND_DIR, "templates")
+)
 
 
 # Application definition
@@ -46,6 +61,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
 )
 
 ROOT_URLCONF = 'myblog.urls'
@@ -79,5 +103,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_ROOT = '/home/agtep_immo/public/static/'
+
+STATIC_FILE_DIRS=(
+    join(FRONTEND_DIR, "static")
+)
+
+print STATIC_ROOT
 
 STATIC_URL = '/static/'
